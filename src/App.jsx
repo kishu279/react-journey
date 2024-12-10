@@ -109,26 +109,52 @@
 
 // export default App;
 
-import React, { useState, useContext, useRef, useEffect } from "react";
+// import React, { useState, useContext, useRef, useEffect } from "react";
 
-function Parent() {
-  const [inputValue, setInputValue] = useState("");
-  const count = useRef(0);
+// function Parent() {
+//   const [inputValue, setInputValue] = useState("");
+//   const count = useRef(0);
 
-  useEffect(() => {
-    count.current = count.current + 1;
-  }, [inputValue]);
+//   useEffect(() => {
+//     count.current = count.current + 1;
+//   }, [inputValue]);
 
-  return (
-    <>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-      <h1>Render: {count.current}</h1>
-    </>
-  );
-}
+//   return (
+//     <>
+//       <input
+//         type="text"
+//         value={inputValue}
+//         onChange={(e) => setInputValue(e.target.value)}
+//       />
+//       <h1>Render: {count.current}</h1>
+//     </>
+//   );
+// }
 
-export default Parent;
+// export default Parent;
+
+// import { useRef } from "react";
+
+// function MyBttn({ value, focuspoint }) {
+//   return <button onClick={focuspoint}>{value}</button>;
+// }
+
+// function App() {
+//   const inputElement = useRef();
+
+//   function focuspoint() {
+//     inputElement.current.focus();
+//   }
+//   return (
+//     <>
+//       <div className="display flex justify-center">
+//         <input className="border" type="text" ref={inputElement} />
+//         <MyBttn value={"Focus"} focuspoint={focuspoint}></MyBttn>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
+
+
