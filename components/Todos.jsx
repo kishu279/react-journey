@@ -13,5 +13,6 @@ const Todos = ({ todos, addTodo }) => {
   );
 };
 
-// after using memo child again rerenders without change in state or props
+// after using memo child again rerenders as values are not changing but reference to that changes 
+
 export default memo(Todos);

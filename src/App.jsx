@@ -169,7 +169,7 @@
 
 // export default App;
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Todos from "./../components/Todos.jsx";
 
 const App = () => {
@@ -179,9 +179,13 @@ const App = () => {
   const increment = () => {
     setCount((c) => c + 1);
   };
-  const addTodo = () => {
-    setTodos((t) => [...t, "New Todo"]);
-  };
+  // const addTodo = () => {
+  //   setTodos((t) => [...t, "New Todo"]);
+  // };
+
+  const addTodo = useCallback(() => {
+    setTodos([...todos, "new todo"]);
+  }, [todos]);
 
   return (
     <>
