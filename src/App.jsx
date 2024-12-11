@@ -1,6 +1,8 @@
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 
+// import { useEffect, useState } from "react";
+
 // function App() {
 //   const [todos, setTodos] = useState([]);
 //   const [loading, setLoading] = useState(true);
@@ -157,4 +159,40 @@
 
 // export default App;
 
+// import useFetch from "./custom hooks/useFetch";
 
+// const App = () => {
+//   const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+
+//   return <>{data && data.map((item) => <p key={item.id}>{item.title}</p>)}</>;
+// };
+
+// export default App;
+
+import { useState } from "react";
+import Todos from "./../components/Todos.jsx";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = () => {
+    setTodos((t) => [...t, "New Todo"]);
+  };
+
+  return (
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  );
+};
+
+export default App;
