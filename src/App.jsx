@@ -199,35 +199,78 @@
 
 // export default App;
 
-import { useEffect, useRef, useState } from "react";
-import useFetch from "./custom hooks/useFetch";
+// import { useEffect, useRef, useState } from "react";
+// import useFetch from "./custom hooks/useFetch";
 
-const App = () => {
-  const [url, setUrl] = useState("");
+// const App = () => {
+//   const [url, setUrl] = useState("");
+//   const inputText = useRef();
+
+//   function handleInput() {
+//     setUrl(inputText.current.value);
+//   }
+
+//   const { data, loading, error } = useFetch(url);
+
+//   return (
+//     <>
+//       <div>
+//         <input
+//           ref={inputText}
+//           type="url"
+//           placeholder="URL"
+//           onChange={handleInput}
+//         />
+
+//         {loading && <p>Loading...</p>}
+//         {error && <p>{error}</p>}
+//         {data && data.map((item) => <ul key={item.id}>{item.title}</ul>)}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default App;
+
+import { useEffect, useRef, useState } from "react";
+import useDebounce from "./custom hooks/useDebounce";
+
+export default function App() {
+  const [data, setData] = useState("");
   const inputText = useRef();
+  const [input, setInput] = useState(null);
 
   function handleInput() {
-    setUrl(inputText.current.value);
+    setInput(inputText.current.value);
   }
 
-  const { data, loading, error } = useFetch(url);
+  //   useEffect(() => {
+  //     // const getData = setTimeout(() => {
+  //     //   setData(input);
+  //     // }, 2000);
+
+  //     // return () => clearTimeout(getData);
+  //   }, [input]);
+
+  useDebounce(
+    () => {
+      setData(input);
+    },
+    2000,
+    input
+  );
 
   return (
     <>
       <div>
         <input
           ref={inputText}
-          type="url"
-          placeholder="URL"
+          type="text"
+          placeholder="enter..."
           onChange={handleInput}
         />
-
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {data && data.map((item) => <ul key={item.id}>{item.title}</ul>)}
+        <p>{data}</p>
       </div>
     </>
   );
-};
-
-export default App;
+}
