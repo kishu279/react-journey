@@ -1,8 +1,6 @@
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 
-// import { useEffect, useState } from "react";
-
 // function App() {
 //   const [todos, setTodos] = useState([]);
 //   const [loading, setLoading] = useState(true);
@@ -159,6 +157,38 @@
 
 // export default App;
 
+// import { useCallback, useState } from "react";
+// import Todos from "./../components/Todos.jsx";
+
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [todos, setTodos] = useState([]);
+
+//   const increment = () => {
+//     setCount((c) => c + 1);
+//   };
+//   // const addTodo = () => {
+//   //   setTodos((t) => [...t, "New Todo"]);
+//   // };
+
+//   const addTodo = useCallback(() => {
+//     setTodos([...todos, "new todo"]);
+//   }, [todos]);
+
+//   return (
+//     <>
+//       <Todos todos={todos} addTodo={addTodo} />
+//       <hr />
+//       <div>
+//         Count: {count}
+//         <button onClick={increment}>+</button>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default App;
+
 // import useFetch from "./custom hooks/useFetch";
 
 // const App = () => {
@@ -169,31 +199,32 @@
 
 // export default App;
 
-import { useCallback, useState } from "react";
-import Todos from "./../components/Todos.jsx";
+import { useEffect, useRef, useState } from "react";
+import useFetch from "./custom hooks/useFetch";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-  const [todos, setTodos] = useState([]);
+  const [url, setUrl] = useState("");
+  const inputText = useRef();
 
-  const increment = () => {
-    setCount((c) => c + 1);
-  };
-  // const addTodo = () => {
-  //   setTodos((t) => [...t, "New Todo"]);
-  // };
+  function handleInput() {
+    setUrl(inputText.current.value);
+  }
 
-  const addTodo = useCallback(() => {
-    setTodos([...todos, "new todo"]);
-  }, [todos]);
+  const { data, loading, error } = useFetch(url);
 
   return (
     <>
-      <Todos todos={todos} addTodo={addTodo} />
-      <hr />
       <div>
-        Count: {count}
-        <button onClick={increment}>+</button>
+        <input
+          ref={inputText}
+          type="url"
+          placeholder="URL"
+          onChange={handleInput}
+        />
+
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {data && data.map((item) => <ul key={item.id}>{item.title}</ul>)}
       </div>
     </>
   );
