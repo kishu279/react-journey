@@ -232,45 +232,81 @@
 
 // export default App;
 
-import { useEffect, useRef, useState } from "react";
-import useDebounce from "./custom hooks/useDebounce";
+// import { useEffect, useRef, useState } from "react";
+// import useDebounce from "./custom hooks/useDebounce";
 
-export default function App() {
-  const [data, setData] = useState("");
-  const inputText = useRef();
-  const [input, setInput] = useState(null);
+// export default function App() {
+//   const [data, setData] = useState("");
+//   const inputText = useRef();
+//   const [input, setInput] = useState(null);
 
-  function handleInput() {
-    setInput(inputText.current.value);
-  }
+//   function handleInput() {
+//     setInput(inputText.current.value);
+//   }
 
-  //   useEffect(() => {
-  //     // const getData = setTimeout(() => {
-  //     //   setData(input);
-  //     // }, 2000);
+//   //   useEffect(() => {
+//   //     // const getData = setTimeout(() => {
+//   //     //   setData(input);
+//   //     // }, 2000);
 
-  //     // return () => clearTimeout(getData);
-  //   }, [input]);
+//   //     // return () => clearTimeout(getData);
+//   //   }, [input]);
 
-  useDebounce(
-    () => {
-      setData(input);
-    },
-    2000,
-    input
-  );
+//   useDebounce(
+//     () => {
+//       setData(input);
+//     },
+//     2000,
+//     input
+//   );
+
+//   return (
+//     <>
+//       <div>
+//         <input
+//           ref={inputText}
+//           type="text"
+//           placeholder="enter..."
+//           onChange={handleInput}
+//         />
+//         <p>{data}</p>
+//       </div>
+//     </>
+//   );
+// }
+import { useState } from "react";
+import usePrev from "./custom hooks/usePrev";
+
+const App = () => {
+  const [input, setInput] = useState(""); // Initialize input with an empty string
+  const [data, setData] = useState(null);
+
+  const prevData = usePrev(data); // Get previous value of `data`
 
   return (
     <>
       <div>
         <input
-          ref={inputText}
           type="text"
-          placeholder="enter..."
-          onChange={handleInput}
+          value={input} // Bind input to the state
+          onChange={(e) => setInput(e.target.value)} // Update state on change
+          placeholder="Enter..."
         />
-        <p>{data}</p>
+        <button
+          onClick={() => {
+            setData(input); // Set data to the current input value when the button is clicked
+          }}
+        >
+          +
+        </button>
+      </div>
+
+      <div>
+        <p>Current Data: {data}</p>
+        <p>Previous Data: {prevData}</p>
       </div>
     </>
   );
-}
+};
+
+export default App;
