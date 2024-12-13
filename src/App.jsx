@@ -274,36 +274,271 @@
 //     </>
 //   );
 // }
-import { useState } from "react";
-import usePrev from "./custom hooks/usePrev";
+// import { useState } from "react";
+// import usePrev from "./custom hooks/usePrev";
 
-const App = () => {
-  const [input, setInput] = useState(""); // Initialize input with an empty string
-  const [data, setData] = useState(null);
+// const App = () => {
+//   const [input, setInput] = useState(""); // Initialize input with an empty string
+//   const [data, setData] = useState(null);
 
-  const prevData = usePrev(data); // Get previous value of `data`
+//   const prevData = usePrev(data); // Get previous value of `data`
+
+//   return (
+//     <>
+//       <div>
+//         <input
+//           type="text"
+//           value={input} // Bind input to the state
+//           onChange={(e) => setInput(e.target.value)} // Update state on change
+//           placeholder="Enter..."
+//         />
+//         <button
+//           onClick={() => {
+//             setData(input); // Set data to the current input value when the button is clicked
+//           }}
+//         >
+//           +
+//         </button>
+//       </div>
+
+//       <div>
+//         <p>Current Data: {data}</p>
+//         <p>Previous Data: {prevData}</p>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default App;
+
+// export default function App() {
+//   const [input, setInput] = useState("");
+//   const [data, setData] = useState("");
+//   useDebounce(
+//     () => {
+//       setData(input);
+//     },
+//     2000,
+//     input
+//   );
+
+//   return (
+//     <>
+//       <div>
+//         <input
+//           type="text"
+//           placeholder="search"
+//           onChange={(e) => setInput(e.target.value)}
+//         />
+//         <p>Input: {input}</p>
+
+//         <p>Data : {data} </p>
+//       </div>
+//     </>
+//   );
+// }
+
+// import { useRef } from "react";
+
+// function App() {
+//   function sendDataToBackend() {
+//     fetch("api.amazon.com/search/");
+//   }
+
+//   const debouncedfn = useDebounce(sendDataToBackend);
+
+//   return (
+//     <div>
+//       <input type="search" onChange={debouncedfn} />
+//     </div>
+//   );
+// }
+
+// //steps :
+// // 1. create a function which accepts the original function
+// // 2. create a clock --> using useRef
+// // 3. write a function to clear the clock --> clearTimeOut and call the function using setTimeOut --> this will be the value of ref current
+// // 4. return the function
+
+// function useDebounce(originalFn) {
+//   const currentClock = useRef();
+//   const fn = () => {
+//     clearTimeout(currentClock.current);
+//     currentClock.current = setTimeout(originalFn, 1000);
+//   };
+//   return fn;
+// }
+
+// export default App;
+
+// Context Api Explanation
+
+// export default function () {
+//   return (
+//     <>
+//       <div>
+//         <LightBulb />
+//       </div>
+//     </>
+//   );
+// }
+
+// function LightBulb() {
+//   const [bulbOn, setBulbOn] = useState(true);
+
+//   return (
+//     <>
+//       <BulbState bulbOn={bulbOn} />
+//       <Toggle setBulbOn={setBulbOn} bulbOn={bulbOn} />
+//     </>
+//   );
+// }
+
+// function BulbState({ bulbOn }) {
+//   return <>{bulbOn ? "Bulb On" : "Bulb Off"}</>;
+// }
+
+// function Toggle({ setBulbOn, bulbOn }) {
+//   return (
+//     <>
+//       <button onClick={() => setBulbOn(!bulbOn)}>Toggle</button>
+//     </>
+//   );
+// }
+
+// import { useContext } from "react";
+
+// const MyContext = createContext();
+
+// export default function () {
+//   const [bulbOn, setBulbOn] = useState(true);
+
+//   return (
+//     <>
+//       <div>
+//         <MyContext.Provider value={{ bulbOn: bulbOn, setBulbOn: setBulbOn }}>
+//           <LightBulb />
+//         </MyContext.Provider>
+//       </div>
+//     </>
+//   );
+// }
+
+// function LightBulb() {
+//   return (
+//     <>
+//       <BulbState />
+//       <Toggle />
+//     </>
+//   );
+// }
+
+// function BulbState() {
+//   const { bulbOn } = useContext(MyContext);
+//   return <>{bulbOn ? "Bulb On" : "Bulb Off"}</>;
+// }
+
+// function Toggle() {
+//   const { bulbOn, setBulbOn } = useContext(MyContext);
+//   return (
+//     <>
+//       <button onClick={() => setBulbOn(!bulbOn)}>Toggle</button>
+//     </>
+//   );
+// }
+
+// import { useState, useContext, createContext } from "react";
+
+// const MyContext = createContext();
+
+// function Wrap({ children }) {
+//   const [bulbOn, setBulbOn] = useState(true);
+//   return (
+//     <MyContext.Provider value={{ bulbOn: bulbOn, setBulbOn: setBulbOn }}>
+//       {children}
+//     </MyContext.Provider>
+//   );
+// }
+
+// function App() {
+//   return (
+//     <>
+//       <div>
+//         <Wrap>
+//           <LightBulb />
+//         </Wrap>
+//       </div>
+//     </>
+//   );
+// }
+
+// function LightBulb() {
+//   return (
+//     <>
+//       <BulbState />
+//       <Toggle />
+//     </>
+//   );
+// }
+
+// function BulbState() {
+//   const { bulbOn } = useContext(MyContext);
+//   return <>{bulbOn ? "Bulb On" : "Bulb Off"}</>;
+// }
+
+// function Toggle() {
+//   const { bulbOn, setBulbOn } = useContext(MyContext);
+//   return (
+//     <>
+//       <button onClick={() => setBulbOn(!bulbOn)}>Toggle</button>
+//     </>
+//   );
+// }
+
+// export default App;
+
+// Recoil --> State Management
+
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { jobsAtom, networkAtom, notificationAtom } from "./Atoms.jsx";
+import { Count } from "./Selectors.jsx";
+
+function App() {
+  return (
+    <>
+      <RecoilRoot>
+        <MyApp />
+      </RecoilRoot>
+    </>
+  );
+}
+
+const MyApp = () => {
+  // const myNetworkAtom = useRecoilValue(networkAtom);
+  // const myNotificationAtom = useRecoilValue(notificationAtom);
+  // const myJobsAtom = useRecoilValue(jobsAtom);
+
+  const [netAtom, setNetAtom] = useRecoilState(networkAtom);
+  const [notiAtom, setNotiAtom] = useRecoilState(notificationAtom);
+  const [jobAtom, setJobAtom] = useRecoilState(jobsAtom);
+  const c = useRecoilValue(Count);
+
+  const updateCount = () => {
+    setNetAtom(c);
+  };
 
   return (
     <>
       <div>
-        <input
-          type="text"
-          value={input} // Bind input to the state
-          onChange={(e) => setInput(e.target.value)} // Update state on change
-          placeholder="Enter..."
-        />
-        <button
-          onClick={() => {
-            setData(input); // Set data to the current input value when the button is clicked
-          }}
-        >
-          +
-        </button>
+        <button>Home</button>
+        <button>Video</button>
+        <button>My Network({netAtom})</button>
+        <button>Notification({notiAtom})</button>
+        <button>Jobs({jobAtom})</button>
       </div>
 
       <div>
-        <p>Current Data: {data}</p>
-        <p>Previous Data: {prevData}</p>
+        <button onClick={updateCount}>Button</button>
       </div>
     </>
   );
